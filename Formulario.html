@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Actividad</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>Reporte de Actividad</h1>
+
+        <table>
+            <tr>
+                <td>Boleta Nro:</td>
+                <td colspan="2"><input type="text" id="boletaNro" readonly></td>
+                <td>Fecha:</td>
+                <td><input type="date"></td>
+            </tr>
+            <tr>
+                <td>Cliente:</td>
+                <td colspan="2"><input type="text"></td>
+                <td>Técnico:</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>Modelo:</td>
+                <td><input type="text"></td>
+                <td>Serie:</td>
+                <td><input type="text"></td>
+                
+            </tr>
+            <tr>
+                <td>Motivo del Servicio:</td>
+                <td><input type="text"></td>
+                <td>Condición del equipo:</td>
+                <td colspan="2"><input type="text"></td>
+
+            </tr>
+
+
+            <tr>
+                
+                <td>Acción tomada:</td>
+                <td><input type="text"></td>
+                <td>Motivo de llamada:</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                
+                <td>Ubicación de la falla:</td>
+                <td><input type="text"></td>
+                <td>Tipo de falla:</td>
+                <td><input type="text"></td>
+            </tr>
+        </table>
+
+        <h2>Repuestos</h2>
+
+        <table id="repuestosTable">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody id="repuestosBody">
+                <tr>
+                    <td><input type="text" name="codigo[]"></td>
+                    <td><input type="text" name="descripcion[]"></td>
+                    <td><input type="number" name="cantidad[]" min="0"></td>
+                    <td><input type="text" name="estado[]"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button class="add-button" onclick="addRow()">Añadir Repuesto</button>
+
+        <h2>Cronómetro</h2>
+        <table>
+            <tr>
+                <td>Hora inicial:</td>
+                <td><input type="time"></td>
+                <td>Hora final:</td>
+                <td><input type="time"></td>
+            </tr>
+            <tr>
+                <td>Proformar repuestos:</td>
+                <td>SI <input type="radio" name="proformar" value="SI"> NO <input type="radio" name="proformar" value="NO"></td>
+                <td>Facturar mano de obra:</td>
+                <td>SI <input type="radio" name="facturar" value="SI"> NO <input type="radio" name="facturar" value="NO"></td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        function addRow() {
+            const table = document.getElementById('repuestosBody');
+            const row = document.createElement('tr');
+
+            row.innerHTML = `
+                <td><input type="text" name="codigo[]"></td>
+                <td><input type="text" name="descripcion[]"></td>
+                <td><input type="number" name="cantidad[]" min="0"></td>
+                <td><input type="text" name="estado[]"></td>
+            `;
+
+            table.appendChild(row);
+        }
+
+        // Auto-incrementa el número de boleta
+        document.addEventListener('DOMContentLoaded', function() {
+            const boletaInput = document.getElementById('boletaNro');
+            let currentNumber = localStorage.getItem('boletaNro') || '000001';
+            boletaInput.value = currentNumber;
+
+            // Incrementar al guardar
+            document.querySelector('.add-button').addEventListener('click', () => {
+                currentNumber = ('000000' + (parseInt(currentNumber, 10) + 1)).slice(-6);
+                localStorage.setItem('boletaNro', currentNumber);
+                boletaInput.value = currentNumber;
+            });
+        });
+    </script>
+
+</body>
+</html>
+
