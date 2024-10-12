@@ -3,82 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte de Actividad</title>
+    <title>Formulario de Servicio Técnico</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <h1>Formulario de Servicio Técnico</h1>
 
-    <div class="form-container">
-        <h1>Reporte de Actividad</h1>
+    <!-- Número de Boleta -->
+    <div class="container">
+        <label for="boleta">Boleta #:</label>
+        <input type="text" id="boleta" readonly>
+    </div>
 
+    <!-- Primer apartado -->
+    <div class="container">
+        <h2>Información General</h2>
+        <div class="form-grid">
+            <label for="cliente">Cliente:</label>
+            <input type="text" id="cliente">
+            <label for="tecnico">Técnico:</label>
+            <input type="text" id="tecnico">
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha">
+            <label for="nIncidencia"># Incidencia:</label>
+            <input type="text" id="nIncidencia">
+            <label for="modelo">Modelo:</label>
+            <input type="text" id="modelo">
+            <label for="serie">Serie:</label>
+            <input type="text" id="serie">
+            <label for="serie">Motivo del servicio:</label>
+            <input type="text" id="motivoservicio">
+            <label for="serie">Condición del equipo:</label>
+            <input type="text" id="condicionequipo">
+            <label for="serie">Acción Tomada:</label>
+            <input type="text" id="acciontomada">
+            <label for="serie">Motivo de llamada:</label>
+            <input type="text" id="motivollamada">
+            <label for="serie">Ubicación falla:</label>
+            <input type="text" id="ubifalla">
+            <label for="serie">Tipo de falla:</label>
+            <input type="text" id="tipofalla">
+        </div>
+    </div>
+
+    <br>
+
+    <div class="container">
+        <h2>Tiempos</h2>
         <table>
             <tr>
-                <td>Boleta Nro:</td>
-                <td colspan="2"><input type="text" id="boletaNro" readonly></td>
-                <td>Fecha:</td>
-                <td><input type="date"></td>
+                <td>Hora inicial viaje:</td>
+                <td><input type="time"></td>
+                <td>Hora final viaje:</td>
+                <td><input type="time"></td>
             </tr>
             <tr>
-                <td>Cliente:</td>
-                <td colspan="2"><input type="text"></td>
-                <td>Técnico:</td>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <td>Modelo:</td>
-                <td><input type="text"></td>
-                <td>Serie:</td>
-                <td><input type="text"></td>
-                
-            </tr>
-            <tr>
-                <td>Motivo del Servicio:</td>
-                <td><input type="text"></td>
-                <td>Condición del equipo:</td>
-                <td colspan="2"><input type="text"></td>
-
-            </tr>
-
-
-            <tr>
-                
-                <td>Acción tomada:</td>
-                <td><input type="text"></td>
-                <td>Motivo de llamada:</td>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                
-                <td>Ubicación de la falla:</td>
-                <td><input type="text"></td>
-                <td>Tipo de falla:</td>
-                <td><input type="text"></td>
-            </tr>
+                <td>Hora inicial trabajo:</td>
+                <td><input type="time"></td>
+                <td>Hora final trabajo:</td>
+                <td><input type="time"></td>
         </table>
+    </div>
+    
 
-        <h2>Repuestos</h2>
+    <br>
 
-        <table id="repuestosTable">
-            <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Descripción</th>
-                    <th>Cantidad</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-            <tbody id="repuestosBody">
-                <tr>
-                    <td><input type="text" name="codigo[]"></td>
-                    <td><input type="text" name="descripcion[]"></td>
-                    <td><input type="number" name="cantidad[]" min="0"></td>
-                    <td><input type="text" name="estado[]"></td>
-                </tr>
-            </tbody>
-        </table>
 
-        <button class="add-button" onclick="addRow()">Añadir Repuesto</button>
-
+        <!-- Cronometro -->
+    <div class="container">
         <h2>Cronómetro</h2>
         <table>
             <tr>
@@ -96,36 +88,362 @@
         </table>
     </div>
 
-    <script>
-        function addRow() {
-            const table = document.getElementById('repuestosBody');
-            const row = document.createElement('tr');
+    <br>
+    <br>
 
-            row.innerHTML = `
-                <td><input type="text" name="codigo[]"></td>
-                <td><input type="text" name="descripcion[]"></td>
-                <td><input type="number" name="cantidad[]" min="0"></td>
-                <td><input type="text" name="estado[]"></td>
-            `;
+    <!-- Repuestos -->
+    <div class="container">
+        <h2>Repuestos</h2>
+        
+        <table id="repuestosTable">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Estado</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Filas dinámicas aquí -->
+            </tbody>
+        </table>
+        <br>
+        <button class="add-button" onclick="addRow()">Añadir fila</button>
+    </div>
 
-            table.appendChild(row);
-        }
+  
+    <br>
+    <br>
 
-        // Auto-incrementa el número de boleta
-        document.addEventListener('DOMContentLoaded', function() {
-            const boletaInput = document.getElementById('boletaNro');
-            let currentNumber = localStorage.getItem('boletaNro') || '000001';
-            boletaInput.value = currentNumber;
+    <!-- Mediciones de voltaje -->
+    <div class="container">
+        <h2>Mediciones de Voltaje</h2>
+        <div class="form-grid">
+            <label for="vn">V-N:</label>
+            <input type="text" id="vn">
+            <label for="nt">N-T:</label>
+            <input type="text" id="nt">
+            <label for="vt">V-T:</label>
+            <input type="text" id="vt">
+        </div>
+    </div>
 
-            // Incrementar al guardar
-            document.querySelector('.add-button').addEventListener('click', () => {
-                currentNumber = ('000000' + (parseInt(currentNumber, 10) + 1)).slice(-6);
-                localStorage.setItem('boletaNro', currentNumber);
-                boletaInput.value = currentNumber;
-            });
-        });
-    </script>
+    <!-- Proformar repuestos -->
+    <div class="container">
+        <h2>Proformar Repuestos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Sí</th>
+                    <th>No</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Proformar repuestos</td>
+                    <td><input type="radio" name="proformar" value="SI"></td>
+                    <td><input type="radio" name="proformar" value="NO"></td>
+                </tr>
+                <tr>
+                    <td>Facturar mano de obra</td>
+                    <td><input type="radio" name="facturar" value="SI"></td>
+                    <td><input type="radio" name="facturar" value="NO"></td>
+                </tr>
+                <tr>
+                    <td>Maquina operativa</td>
+                    <td><input type="radio" name="operativa" value="SI"></td>
+                    <td><input type="radio" name="operativa" value="NO"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
+    <br>
+    <br>
+
+
+
+   
+    <!-- Firma y Sello del Cliente -->
+    <div class="container">
+        <h2>Firma y Sello del Cliente</h2>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre">
+        <label for="area">Área:</label>
+        <input type="text" id="area">
+    </div>
+    <div class="container">
+        <h3>Firma:</h3>
+        <canvas id="firmaCanvas" width="400" height="200" style="border:1px solid #ccc; border-radius: 5px;"></canvas>
+        <br>
+        <button onclick="clearCanvas()">Limpiar Firma</button>
+    </div>
+
+    <!-- Checklist Técnico -->
+    <div class="container">
+        <h2>Check List Servicio Técnico</h2>
+        <h3>Ambiente de Trabajo</h3>
+        <table id="checklist">
+            <thead>
+                <tr>
+                    <th>N</th>
+                    <th>Descripción</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Equipo expuesto a un ambiente adecuado</td>
+                    <td><input type="checkbox" name="item1"></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Equipo con múltiples conexiones</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Toma a tierra</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Revisión nivel de voltaje adecuado - estabilizado</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Limpieza externa/interna</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+        <h3>Inzumos Utilizados</h3>
+        <table id="checklist">
+            <thead>
+                <tr>
+                    <th>N</th>
+                    <th>Descripción</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Tipo de papel adecuado</td>
+                    <td><input type="checkbox" name="item1"></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Verificación del uso del toner original</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+        <h3>Unidades y Accesorios</h3>
+        <table id="checklist">
+            <thead>
+                <tr>
+                    <th>N</th>
+                    <th>Descripción</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Sistema óptico</td>
+                    <td><input type="checkbox" name="item1"></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Entorno del fotoconductor</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Unidad de limpieza</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Unidad de transferencia</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Unidad de revelado</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Unidad de alimentación de papel</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Unidad de fusion y salida del papel</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Envase de toner residual</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Panel de operaciones y pulsadores</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>Unidad duplex</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>Bandejas de papel</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>Sistema electrico y mecánico</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td>Alimentador de originales</td>
+                    <td><input type="checkbox" name="item1"></td>
+                </tr>
+                <tr>
+                    <td>14</td>
+                    <td>Bandeja de gran capacidad</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>15</td>
+                    <td>Finalizador</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>16</td>
+                    <td>MailBox</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>17</td>
+                    <td>Unidad Laser</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>18</td>
+                    <td>Unidad ByPass</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>19</td>
+                    <td>Unidad Fuente</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>20</td>
+                    <td>Unidad de intercambio</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>21</td>
+                    <td>Unidad de cubiertas</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>22</td>
+                    <td>Unidad de perforado y grapado</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>23</td>
+                    <td>Unidad de toner</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>24</td>
+                    <td>Unidad salida de papel</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>25</td>
+                    <td>Tapa y cubiertas</td>
+                    <td><input type="checkbox" name="item1"></td>
+                </tr>
+                <tr>
+                    <td>26</td>
+                    <td>Unidades y accesorios</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>27</td>
+                    <td>Electrico</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>28</td>
+                    <td>Mecanico</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>29</td>
+                    <td>Unidades y accesorios</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>30</td>
+                    <td>Impresión</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>31</td>
+                    <td>Escaner</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>32</td>
+                    <td>Fax</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>33</td>
+                    <td>Software</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>34</td>
+                    <td>Dispositivo remoto</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+                <tr>
+                    <td>35</td>
+                    <td>configuración</td>
+                    <td><input type="checkbox" name="item2"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+ 
+
+    <!-- Botón de Guardar y Enviar -->
+    <div class="button-container">
+        <button class="submit-button" onclick="guardarYEnviar()">Guardar y Enviar</button>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
 
